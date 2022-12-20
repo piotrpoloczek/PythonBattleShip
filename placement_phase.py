@@ -16,6 +16,11 @@ def create_boad():
         board.append(sub_board)
     print(board)
 
+def check_coordinate_is_in_board(coordinate_x,coordinate_y):
+    return 0 <= coordinate_x <= BOARD_SIZE and 0 <= coordinate_y <= BOARD_SIZE
+
+
+
 def check_available_coordinates(board):
     available_coordinates = []
     for row_index, row in enumerate(board):
@@ -30,7 +35,7 @@ def ask_user_input():
 def validate_user_input():
     pass
 
-create_boad()
+print(check_coordinate_is_in_board(coordinate_x=0,coordinate_y=4))
 
 # if __name__ == '__main__':
 #     battleship_board = board.return_empty_board(5, 5)
