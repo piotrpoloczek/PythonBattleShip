@@ -1,4 +1,4 @@
-import board
+#import board
 """
 Implement the placement phase of the battleship program where players can place ships on a board.
 input similar to [['0', '0', '0', '0'],['0', '0', '0', '0'],['0', '0', '0', '0'],['0', '0', '0', '0']]
@@ -16,8 +16,21 @@ def create_boad():
         board.append(sub_board)
     print(board)
 
+
 def check_coordinate_is_in_board(coordinate_x,coordinate_y):
     return 0 <= coordinate_x <= BOARD_SIZE and 0 <= coordinate_y <= BOARD_SIZE
+
+
+def check_coordinate_is_free(board,coordinate_x,coordinate_y):
+    return board[coordinate_x][coordinate_y] == '0'
+
+
+def ask_for_coordinates(board):
+    pass
+
+
+def ship_placement(board):
+    pass
 
 
 
@@ -35,7 +48,11 @@ def ask_user_input():
 def validate_user_input():
     pass
 
-print(check_coordinate_is_in_board(coordinate_x=0,coordinate_y=4))
+board = [['0', '0', '0', '0', '0'], ['0', '0', '0', '0', '0'], ['0', '0', '0', '0', '0'], ['0', '0', '0', '0', '0'], ['0', '0', '0', '0', '0']]
+print(check_coordinate_is_free(board,coordinate_x=0,coordinate_y=3))
+
+
+
 
 # if __name__ == '__main__':
 #     battleship_board = board.return_empty_board(5, 5)
