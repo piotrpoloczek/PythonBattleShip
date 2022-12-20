@@ -4,7 +4,7 @@ Implement the placement phase of the battleship program where players can place 
 input similar to [['0', '0', '0', '0'],['0', '0', '0', '0'],['0', '0', '0', '0'],['0', '0', '0', '0']]
 """
 
-BOARD_SIZE = 5
+BOARD_SIZE = 6
 
 
 def create_boad():
@@ -18,15 +18,43 @@ def create_boad():
 
 
 def check_coordinate_is_in_board(coordinate_x,coordinate_y):
-    return 0 <= coordinate_x <= BOARD_SIZE and 0 <= coordinate_y <= BOARD_SIZE
+    return 0 <= coordinate_x <= BOARD_SIZE-1 and 0 <= coordinate_y <= BOARD_SIZE-1
 
 
 def check_coordinate_is_free(board,coordinate_x,coordinate_y):
-    return board[coordinate_x][coordinate_y] == '0'
+    try:
+        return board[coordinate_x][coordinate_y] == '0'
+    except IndexError:
+        return False
+
+
+def translate_coordinates(coordinates):
+    coordinate_x = 0
+    coordinate_y = 0
+    letter = coordinates[0].lower()
+    possible = list(map(chr, range(97, 128)))
+    for i in possible:
+        if i == letter:
+            break
+        coordinate_x += 1
+
+    try:
+        coordinate_y = int(coordinates[1:])
+    except ValueError:
+        return False
+
+    return (coordinate_x,coordinate_y-1)
 
 
 def ask_for_coordinates(board):
-    pass
+    while True:
+        coordinates = input('enter coordinates')
+        coordinate_x, coordinate_y= translate_coordinates(coordinates)
+        if check_coordinate_is_in_board(coordinate_x,coordinate_y) and check_coordinate_is_free(board,coordinate_x,coordinate_y):
+            return (coordinate_x,coordinate_y)
+        else:
+            print('Bad coordinates')
+    
 
 
 def ship_placement(board):
@@ -48,9 +76,7 @@ def ask_user_input():
 def validate_user_input():
     pass
 
-board = [['0', '0', '0', '0', '0'], ['0', '0', '0', '0', '0'], ['0', '0', '0', '0', '0'], ['0', '0', '0', '0', '0'], ['0', '0', '0', '0', '0']]
-print(check_coordinate_is_free(board,coordinate_x=0,coordinate_y=3))
-
+print(ask_for_coordinates(board=[['0', '0', '0', '0','0'],['0', '0', '0', '0','0'],['0', '0', '0', '0','0'],['0', '0', '0', '0','0'],['0', '0', '0', '0','0']]))
 
 
 
