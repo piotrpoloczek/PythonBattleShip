@@ -12,7 +12,7 @@ def create_boad():
     for i in range(BOARD_SIZE):
         sub_board = []
         for j in range(BOARD_SIZE):
-            sub_board.append(('O'))
+            sub_board.append(('0'))
         board.append(sub_board)
     print(board)
 
