@@ -115,30 +115,33 @@ def place_ship(board,coordinate_x,coordinate_y,orientation,ship_size):
                     board_copy[coordinate_x][coordinate_y] = 'X'
                     coordinate_y += 1
                 else:
-                    break
-            return board_copy
+                    return board, False
+            return board_copy,True
         elif orientation == 'horizontal':
             for i in range(ship_size):
                 if check_for_near_ships_horizontal(board_copy,coordinate_x,coordinate_y) == True:
                     board_copy[coordinate_x][coordinate_y] = 'X'
                     coordinate_x += 1
                 else:
-                    break
-            return board_copy
+                    return board,False
+            return board_copy,True
     except IndexError:
         print('The ship is otside the board!')
-        return board
+        return board,False
 
 
 def ships_placement(board):
     print(board)
     ships_to_place = number_of_ships()
     for i in ships_to_place:
-        print(f'place ship of size {i}')
-        coordinate_x,coordinate_y = ask_for_coordinates(board)
-        orientation = ask_for_orientation()
-        board, is_ship_placed = place_ship(board,coordinate_x,coordinate_y,orientation,i)
-        print(board)
+        while True:
+            print(f'place ship of size {i}')
+            coordinate_x,coordinate_y = ask_for_coordinates(board)
+            orientation = ask_for_orientation()
+            board, is_ship_placed = place_ship(board,coordinate_x,coordinate_y,orientation,i)
+            print(board)
+            if is_ship_placed:
+                break
 
 
 def ask_user_input():
@@ -149,8 +152,8 @@ def validate_user_input():
 
 
 
-board=[['0', '0', '0', '0','0'],['X', '0', '0', '0','0'],['0', '0', '0', '0','0'],['0', '0', '0', '0','0'],['0', '0', '0', '0','0']]
-place_ship(board,coordinate_x=0,coordinate_y=0,orientation='horizontal',ship_size=4)
+board=[['0', '0', '0', '0','0'],['0', '0', '0', '0','0'],['0', '0', '0', '0','0'],['0', '0', '0', '0','0'],['0', '0', '0', '0','0']]
+ships_placement(board)
 
 
 
