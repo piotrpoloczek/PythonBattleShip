@@ -18,34 +18,32 @@ def row_number(board_size = 5):
     return rows
 
 
+
+
 #function validate size of input string, scope of input string and return coordinates in form (x,y) and current player after move.
 def user_input(size_of_the_board,current_player):
     while True:
         
         user_shoot = input("Make a shoot :").upper() 
-      
-        if len(user_shoot) == 2 and user_shoot[1].isalpha() != True:
-            break
+    
+        if len(user_shoot) == 2 and user_shoot[1].isalpha() != True \
+            and user_shoot[0].isalpha() == True \
+            and int(user_shoot[1]) in range(1, size_of_the_board + 1) \
+            and int(user_shoot[0] in row_number(size_of_the_board)):
+          break
         else:
             continue
     
-    
-    if user_shoot[0] in row_number(size_of_the_board):
-           
-
-        if int(user_shoot[1]) in range(1, size_of_the_board + 1):
-            row = row_number(size_of_the_board)
-            res_user_shoot = (row.index(user_shoot[0]),int(user_shoot[1])-1)
-            current_player = change_player(current_player)
-            return res_user_shoot, current_player
-        else:
-            print('Invalid input!, try again!')
- 
-
+    row = row_number(size_of_the_board)
+    res_user_shoot = (row.index(user_shoot[0]),int(user_shoot[1])-1)
+    current_player = change_player(current_player)
+    return res_user_shoot, current_player
+  
 def main():      
-    # current_player = 'Player_1'
+  
     coortinates, current_player = user_input(6, current_player = 'Player_a')
     print(current_player, coortinates)
+   
 
 
 if __name__ == "__main__":
