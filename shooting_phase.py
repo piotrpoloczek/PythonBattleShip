@@ -1,4 +1,3 @@
-current_player = 'Player_2'
 
 # swiching player function
 def change_player(player):
@@ -24,22 +23,30 @@ def user_input(size_of_the_board,current_player):
     while True:
         
         user_shoot = input("Make a shoot :").upper() 
-        if len(user_shoot) > 2:
+      
+        if len(user_shoot) == 2 and user_shoot[1].isalpha() != True:
+            break
+        else:
             continue
-        try:
-            if user_shoot[0] in row_number(size_of_the_board):
-                if int(user_shoot[1]) in range(0, size_of_the_board + 1):
-                    row = row_number(size_of_the_board)
-                    res_user_shoot = (row.index(user_shoot[0]),int(user_shoot[1])-1)
-                    current_player = change_player(current_player)
-                    return res_user_shoot, current_player
-            else:
-                print('Invalid input!, try again!')
-                continue
-        except IndexError:
+    
+    
+    if user_shoot[0] in row_number(size_of_the_board):
+           
 
-            print('')
+        if int(user_shoot[1]) in range(1, size_of_the_board + 1):
+            row = row_number(size_of_the_board)
+            res_user_shoot = (row.index(user_shoot[0]),int(user_shoot[1])-1)
+            current_player = change_player(current_player)
+            return res_user_shoot, current_player
+        else:
+            print('Invalid input!, try again!')
+ 
 
-       
-coortinates, current_player = user_input(6, current_player)
-print(current_player, coortinates)
+def main():      
+    # current_player = 'Player_1'
+    coortinates, current_player = user_input(6, current_player = 'Player_a')
+    print(current_player, coortinates)
+
+
+if __name__ == "__main__":
+    main()
