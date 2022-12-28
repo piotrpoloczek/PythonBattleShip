@@ -30,7 +30,7 @@ def user_input(size_of_the_board,current_player):
             if user_shoot[0] in row_number(size_of_the_board):
                 if int(user_shoot[1]) in range(0, size_of_the_board + 1):
                     row = row_number(size_of_the_board)
-                    res_user_shoot = (row.index(user_shoot[0]),int(user_shoot[1]))
+                    res_user_shoot = (row.index(user_shoot[0]),int(user_shoot[1])-1)
                     current_player = change_player(current_player)
                     return res_user_shoot, current_player
             else:
