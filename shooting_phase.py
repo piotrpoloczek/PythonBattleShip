@@ -67,8 +67,11 @@ def main():
     # clear_screen()
   
     current_player = "Player_1"
-    test_board_1 = [['0', '0', '0', '0'],['0', '0', '0', '0'],['0', '0', '0', '0'],['0', '0', '0', '0']]
-    board_size = len(test_board_1)
+    placement_board_1 = [['0', '0', '0', '0'],['0', '0', '0', '0'],['0', '0', '0', '0'],['0', '0', '0', '0']] 
+    placement_board_2 = [['0', '0', '0', '0'],['0', '0', '0', '0'],['0', '0', '0', '0'],['0', '0', '0', '0']]
+    shooting_board_1 = [['0', '0', '0', '0'],['0', '0', '0', '0'],['0', '0', '0', '0'],['0', '0', '0', '0']] 
+    shooting_board_2 = [['0', '0', '0', '0'],['0', '0', '0', '0'],['0', '0', '0', '0'],['0', '0', '0', '0']]
+    board_size = len(placement_board_1)
    
      
     coortinates, current_player = user_input(board_size,current_player)
@@ -76,9 +79,9 @@ def main():
     print(current_player)
     
     while True:
-        user_shoot(coortinates, test_board_1)
+        user_shoot(coortinates, placement_board_1)
         for i in range(board_size):
-            print(test_board_1[i])
+            print(shooting_board_1[i])
        
         
                 
