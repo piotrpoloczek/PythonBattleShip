@@ -28,23 +28,23 @@ def clear_screen():
     else:
         _ = system('clear')
 
-#function validate size of input string, scope of input string and return coordinates in form (x,y) and current player after move.
+#function validate size of input string, scope of input string and return coordinates in form (x,y) and current player after move. scope 26x26
 def user_input(size_of_the_board,current_player):
     
     while True:
         user_shoot = input("Make a shoot :").upper()
 
         quit_from_application(user_shoot)
-   
-#validation of input
        
         if len(user_shoot) == 2 and user_shoot[1].isalpha() != True \
             and user_shoot[0].isalpha() == True \
             and int(user_shoot[1]) in range(1, size_of_the_board + 1) \
-            and int(user_shoot[0] in row_number(size_of_the_board)):
+            and user_shoot[0] in row_number(size_of_the_board):
+            # print(row_number(size_of_the_board))
             break
         else:
             clear_screen()
+            print('Invaild input!')
             continue
 
 
@@ -53,13 +53,36 @@ def user_input(size_of_the_board,current_player):
    
     return res_user_shoot, current_player
 
+def user_shoot(coordinates, test_board):
+    cor_vertical = coordinates[0]
+    cor_horizontal = coordinates[1]
+    test_board[cor_horizontal][cor_vertical] = "S"
+    return test_board
+
+    
+    
 
   
 def main():      
+    # clear_screen()
+  
+    current_player = "Player_1"
+    test_board_1 = [['0', '0', '0', '0'],['0', '0', '0', '0'],['0', '0', '0', '0'],['0', '0', '0', '0']]
+    board_size = len(test_board_1)
    
-    coortinates, current_player = user_input(6, current_player = 'Player_a')
-    print(current_player, coortinates)
-   
+     
+    coortinates, current_player = user_input(board_size,current_player)
+
+    print(current_player)
+    
+    while True:
+        user_shoot(coortinates, test_board_1)
+        for i in range(board_size):
+            print(test_board_1[i])
+       
+        
+                
+    # print(current_player, coortinates)
 
 
 if __name__ == "__main__":
