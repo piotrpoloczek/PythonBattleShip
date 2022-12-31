@@ -13,7 +13,5 @@ def prepare_player(board_size):
 def prepare_game():
     difficulity_level = return_dimension()
     player_1 = prepare_player(difficulity_level)
-    player_2 = prepare_player(difficulity_level)
-    # tutaj zwracam listę z dwoma słownikami dla graczy
-    # tylko tą funkcję wykorzystujemy w głównej pętli 
+    player_2 = prepare_player(difficulity_level) 
     return [player_1, player_2]

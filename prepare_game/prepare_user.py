@@ -27,6 +27,4 @@ def prepare_user_name():
         else:
             invallid_username_error()
     
-    return user_name
-
-    
+    return user_name    

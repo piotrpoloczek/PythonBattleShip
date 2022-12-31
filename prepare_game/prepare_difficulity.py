@@ -1,7 +1,3 @@
-
-
-
-
 from prepare_game.errors_messages import board_size_error
 from prepare_game.const import MIN_BOARD_SIZE, MAX_BOARD_SIZE
 
