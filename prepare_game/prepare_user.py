@@ -4,7 +4,7 @@ It has also the functions for printing the board.
 
 '''
 
-from errors_messages import invallid_username_error
+from prepare_game.errors_messages import invallid_username_error
 
 
 def ask_user_name():

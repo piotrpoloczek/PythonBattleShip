@@ -1,7 +1,9 @@
+from prepare_game.const import MAX_BOARD_SIZE, MIN_BOARD_SIZE
 
 
 def board_size_error():
-    print('Your board is to big, please choose the size from 1 to 20 at most.')
+    print(f'You provided incorrect input, please choose the size from \
+{MIN_BOARD_SIZE} to {MAX_BOARD_SIZE} at most.')
 
 
 def invallid_username_error():
