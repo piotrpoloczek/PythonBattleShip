@@ -14,7 +14,5 @@ def main_loop():
     print_board(players[0]['placement_board'])
 
     
-
-
 if __name__ == '__main__':
     main_loop()
