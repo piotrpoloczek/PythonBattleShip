@@ -79,13 +79,13 @@ def ask_for_orientation():
 
 def check_for_near_ships_horizontal(board,coordinate_x,coordinate_y):
     try:
-        if board[coordinate_x-1][coordinate_y] != 'X' and board[coordinate_x][coordinate_y+1] != 'X' and board[coordinate_x+1][coordinate_y] != 'X':
+        if board[coordinate_x][coordinate_y-1] != 'X' or board[coordinate_x+1][coordinate_y] != 'X' or board[coordinate_x][coordinate_y-1] != 'X':
             return True
         else:
             print('Ship is to close to another ship')
             return False
     except IndexError:
-        if board[coordinate_x-1][coordinate_y] != 'X' and board[coordinate_x][coordinate_y+1] != 'X' and board[coordinate_x+1][coordinate_y] != 'X':
+        if board[coordinate_x][coordinate_y-1] != 'X' or board[coordinate_x+1][coordinate_y] != 'X' or board[coordinate_x][coordinate_y-1] != 'X':
             return True
         else:
             print('Ship is to close to another ship')
@@ -94,13 +94,13 @@ def check_for_near_ships_horizontal(board,coordinate_x,coordinate_y):
 
 def check_for_near_ships_vertical(board,coordinate_x,coordinate_y):
     try:
-        if board[coordinate_x][coordinate_y-1] == 'X' or board[coordinate_x][coordinate_y+1] == 'X' or board[coordinate_x+1][coordinate_y] == 'X':
+        if board[coordinate_x-1][coordinate_y] == 'X' or board[coordinate_x][coordinate_y+1] == 'X' or board[coordinate_x+1][coordinate_y] == 'X':
             print('Ship is to close to another ship')
             return False
         else:
             return True
     except IndexError:
-        if board[coordinate_x][coordinate_y-1] == 'X' or board[coordinate_x][coordinate_y+1] == 'X' or board[coordinate_x+1][coordinate_y] == 'X':
+        if board[coordinate_x-1][coordinate_y] == 'X' or board[coordinate_x][coordinate_y+1] == 'X' or board[coordinate_x+1][coordinate_y] == 'X':
             print('Ship is to close to another ship')
             return False
         else:
@@ -156,7 +156,7 @@ def validate_user_input():
 
 
 board=[['0', '0', '0', '0','0'],['0', '0', '0', '0','0'],['0', '0', '0', '0','0'],['0', '0', '0', '0','0'],['0', '0', '0', '0','0']]
-ships_placement(board)
+print(place_ship(board,coordinate_x=0,coordinate_y=0,orientation='horizontal',ship_size=6))
 
 
 
