@@ -1,4 +1,5 @@
 #import board
+import copy
 """
 Implement the placement phase of the battleship program where players can place ships on a board.
 input similar to [['0', '0', '0', '0'],['0', '0', '0', '0'],['0', '0', '0', '0'],['0', '0', '0', '0']]
@@ -107,27 +108,29 @@ def check_for_near_ships_vertical(board,coordinate_x,coordinate_y):
             return True
 
 def place_ship(board,coordinate_x,coordinate_y,orientation,ship_size):
-    board_copy = board
-    try:
-        if orientation == 'vertical':
+    board_copy = copy.deepcopy(board)
+    if orientation == 'vertical':
+        try:
             for i in range(0,ship_size):
                 if check_for_near_ships_vertical(board_copy,coordinate_x,coordinate_y) == True:
                     board_copy[coordinate_x][coordinate_y] = 'X'
                     coordinate_y += 1
                 else:
-                    return board, False
-            return board_copy,True
-        elif orientation == 'horizontal':
-            for i in range(0,ship_size):
-                if check_for_near_ships_horizontal(board_copy,coordinate_x,coordinate_y) == True:
-                    board_copy[coordinate_x][coordinate_y] = 'X'
-                    coordinate_x += 1
-                else:
-                    return board,False
-            return board_copy,True
-    except IndexError:
-        print('The ship is otside the board!')
-        return board,False
+                    return board
+            return board_copy
+        except IndexError:
+            return board
+    elif orientation == 'horizontal':
+        for i in range(0,ship_size):
+            if check_for_near_ships_horizontal(board_copy,coordinate_x,coordinate_y) == True:
+                board_copy[coordinate_x][coordinate_y] = 'X'
+                coordinate_x += 1
+            else:
+                return board
+        return board_copy
+    # except IndexError:
+    #     print('The ship is otside the board!')
+    #     return board
 
 
 def ships_placement(board):
@@ -156,7 +159,7 @@ def validate_user_input():
 
 
 board=[['0', '0', '0', '0','0'],['0', '0', '0', '0','0'],['0', '0', '0', '0','0'],['0', '0', '0', '0','0'],['0', '0', '0', '0','0']]
-print(place_ship(board,coordinate_x=0,coordinate_y=0,orientation='horizontal',ship_size=6))
+print(place_ship(board,coordinate_x=0,coordinate_y=0,orientation='vertical',ship_size=6))
 
 
 
