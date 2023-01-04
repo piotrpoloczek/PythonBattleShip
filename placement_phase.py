@@ -42,7 +42,7 @@ def translate_coordinates(coordinates):
     try:
         coordinate_y = int(coordinates[1:])
     except ValueError:
-        return False
+        return False,False
 
     return (coordinate_x,coordinate_y-1)
 
@@ -116,18 +116,21 @@ def place_ship(board,coordinate_x,coordinate_y,orientation,ship_size):
                     board_copy[coordinate_x][coordinate_y] = 'X'
                     coordinate_y += 1
                 else:
-                    return board
-            return board_copy
+                    return board,False
+            return board_copy,True
         except IndexError:
-            return board
+            return board,False
     elif orientation == 'horizontal':
-        for i in range(0,ship_size):
-            if check_for_near_ships_horizontal(board_copy,coordinate_x,coordinate_y) == True:
-                board_copy[coordinate_x][coordinate_y] = 'X'
-                coordinate_x += 1
-            else:
-                return board
-        return board_copy
+        try:
+            for i in range(0,ship_size):
+                    if check_for_near_ships_horizontal(board_copy,coordinate_x,coordinate_y) == True:
+                        board_copy[coordinate_x][coordinate_y] = 'X'
+                        coordinate_x += 1
+                    else:
+                        return board,False
+            return board_copy,True
+        except IndexError:
+            return board,False
     # except IndexError:
     #     print('The ship is otside the board!')
     #     return board
@@ -159,7 +162,7 @@ def validate_user_input():
 
 
 board=[['0', '0', '0', '0','0'],['0', '0', '0', '0','0'],['0', '0', '0', '0','0'],['0', '0', '0', '0','0'],['0', '0', '0', '0','0']]
-print(place_ship(board,coordinate_x=0,coordinate_y=0,orientation='vertical',ship_size=6))
+ships_placement(board)
 
 
 
