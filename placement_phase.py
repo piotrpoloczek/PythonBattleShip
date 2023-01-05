@@ -5,7 +5,7 @@ Implement the placement phase of the battleship program where players can place 
 input similar to [['0', '0', '0', '0'],['0', '0', '0', '0'],['0', '0', '0', '0'],['0', '0', '0', '0']]
 """
 
-BOARD_SIZE = 6
+BOARD_SIZE = 5
 
 
 def create_boad():
@@ -65,7 +65,7 @@ def ask_for_coordinates(board):
             print('Bad coordinates')
 
 def number_of_ships():
-    number_of_ships = [1,1,1,1,2,2]
+    number_of_ships = [1,1,1,2,2]
     return number_of_ships
 
 def ask_for_orientation():
@@ -119,18 +119,26 @@ def place_ship(board,coordinate_x,coordinate_y,orientation,ship_size):
                     return board,False
             return board_copy,True
         except IndexError:
-            return board,False
+            if board_copy[coordinate_x][coordinate_y] != 'X':
+                board_copy[coordinate_x][coordinate_y] = 'X'
+                return board_copy, True
+            else:
+                return board,False
     elif orientation == 'horizontal':
         try:
             for i in range(0,ship_size):
-                    if check_for_near_ships_horizontal(board_copy,coordinate_x,coordinate_y) == True:
-                        board_copy[coordinate_x][coordinate_y] = 'X'
-                        coordinate_x += 1
-                    else:
-                        return board,False
+                if check_for_near_ships_horizontal(board_copy,coordinate_x,coordinate_y) == True:
+                    board_copy[coordinate_x][coordinate_y] = 'X'
+                    coordinate_x += 1
+                else:
+                    return board,False
             return board_copy,True
         except IndexError:
-            return board,False
+            if board_copy[coordinate_x][coordinate_y] != 'X':
+                board_copy[coordinate_x][coordinate_y] = 'X'
+                return board_copy, True
+            else:
+                return board,False
     # except IndexError:
     #     print('The ship is otside the board!')
     #     return board
