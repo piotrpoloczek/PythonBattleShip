@@ -119,7 +119,7 @@ def place_ship(board,coordinate_x,coordinate_y,orientation,ship_size):
                     return board,False
             return board_copy,True
         except IndexError:
-            if board_copy[coordinate_x][coordinate_y] != 'X':
+            if check_coordinate_is_in_board(coordinate_x,coordinate_y) and check_coordinate_is_free(board_copy,coordinate_x,coordinate_y) and (ship_size == 1 or i == ship_size-1):
                 board_copy[coordinate_x][coordinate_y] = 'X'
                 return board_copy, True
             else:
@@ -134,7 +134,7 @@ def place_ship(board,coordinate_x,coordinate_y,orientation,ship_size):
                     return board,False
             return board_copy,True
         except IndexError:
-            if board_copy[coordinate_x][coordinate_y] != 'X':
+            if check_coordinate_is_in_board(coordinate_x,coordinate_y) and check_coordinate_is_free(board_copy,coordinate_x,coordinate_y) and (ship_size == 1 or i == ship_size-1):
                 board_copy[coordinate_x][coordinate_y] = 'X'
                 return board_copy, True
             else:
@@ -159,6 +159,8 @@ def ships_placement(board):
             print(board)
             if is_ship_placed:
                 break
+            else:
+                print('The ship is wrong placed')
 
 
 def ask_user_input():
