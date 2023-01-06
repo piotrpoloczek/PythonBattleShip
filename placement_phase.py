@@ -42,7 +42,7 @@ def translate_coordinates(coordinates):
     try:
         coordinate_y = int(coordinates[1:])
     except ValueError:
-        return False,False
+        return 'Bad','Bad'
 
     return (coordinate_x,coordinate_y-1)
 
@@ -59,7 +59,9 @@ def ask_for_coordinates(board):
     while True:
         coordinates = input('enter coordinates\n')
         coordinate_x, coordinate_y= translate_coordinates(coordinates)
-        if check_coordinate_is_in_board(coordinate_x,coordinate_y) and check_coordinate_is_free(board,coordinate_x,coordinate_y):
+        if coordinate_x == 'Bad' or coordinate_y == 'Bad':
+            print('bad coordinates')
+        elif check_coordinate_is_in_board(coordinate_x,coordinate_y) and check_coordinate_is_free(board,coordinate_x,coordinate_y):
             return (coordinate_x,coordinate_y)
         else:
             print('Bad coordinates')
@@ -111,6 +113,9 @@ def place_ship(board,coordinate_x,coordinate_y,orientation,ship_size):
     board_copy = copy.deepcopy(board)
     if orientation == 'vertical':
         try:
+            if check_coordinate_is_in_board(coordinate_x,coordinate_y-1) and board_copy[coordinate_x][coordinate_y-1] == 'X':
+                print('Ship is to close to another ship')
+                return board,False
             for i in range(0,ship_size):
                 if check_for_near_ships_vertical(board_copy,coordinate_x,coordinate_y) == True:
                     board_copy[coordinate_x][coordinate_y] = 'X'
@@ -126,6 +131,9 @@ def place_ship(board,coordinate_x,coordinate_y,orientation,ship_size):
                 return board,False
     elif orientation == 'horizontal':
         try:
+            if check_coordinate_is_in_board(coordinate_x-1,coordinate_y) and board_copy[coordinate_x-1][coordinate_y] == 'X':
+                print('Ship is to close to another ship')
+                return board,False
             for i in range(0,ship_size):
                 if check_for_near_ships_horizontal(board_copy,coordinate_x,coordinate_y) == True:
                     board_copy[coordinate_x][coordinate_y] = 'X'
