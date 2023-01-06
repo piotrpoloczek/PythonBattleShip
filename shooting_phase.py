@@ -65,74 +65,82 @@ def user_shoot(coordinates, test_board, czynnosc ):
   
 def main():      
     # clear_screen()
-<<<<<<< HEAD
-  
+    
     current_player = "Player_1"
-    placement_board_1 = [['0', '0', '0', '0'],['0', '0', '0', '0'],['0', '0', '0', '0'],['0', '0', '0', '0']] 
-    placement_board_2 = [['0', '0', '0', '0'],['0', '0', '0', '0'],['0', '0', '0', '0'],['0', '0', '0', '0']]
-    shooting_board_1 = [['0', '0', '0', '0'],['0', '0', '0', '0'],['0', '0', '0', '0'],['0', '0', '0', '0']] 
-    shooting_board_2 = [['0', '0', '0', '0'],['0', '0', '0', '0'],['0', '0', '0', '0'],['0', '0', '0', '0']]
+    placement_board_1 =  [['0', 'X', '0', '0'],
+                          ['0', 'X', '0', 'X'],
+                          ['0', '0', '0', '0'],
+                          ['0', '0', 'X', '0']]
+
+
+    placement_board_2 = [['X', '0', 'X', '0'],
+                         ['X', '0', '0', '0'],
+                         ['0', 'X', '0', '0'],
+                         ['0', '0', '0', '0']]
+
+    shooting_board_1 =   [['0', '0', '0', '0'],
+                          ['0', '0', '0', '0'],
+                          ['0', '0', '0', '0'],
+                          ['0', '0', '0', '0']]
+
+
+    shooting_board_2 =  [['0', '0', '0', '0'],
+                         ['0', '0', '0', '0'],
+                         ['0', '0', '0', '0'],
+                         ['0', '0', '0', '0']]
+
+
+
+
     board_size = len(placement_board_1)
-   
-     
-    coortinates, current_player = user_input(board_size,current_player)
-
-    print(current_player)
-    
-    while True:
-        user_shoot(coortinates, placement_board_1)
-        for i in range(board_size):
-            print(shooting_board_1[i])
-=======
-    
-    current_player = "Player_2"
-    test_board_1 =  ['0', '0', '0', '0'],\
-                    ['0', '0', '0', '0'],\
-                    ['0', '0', '0', '0'],\
-                    ['0', '0', '0', '0']
-
-
-    test_board_2 = [['0', '0', '0', '0'],
-                    ['0', '0', '0', '0'],
-                    ['0', '0', '0', '0'],
-                    ['0', '0', '0', '0']]
-
-    board_size = len(test_board_1)
     # print(test_board_1)
     
     # for i in range(board_size):
             
     #             print(test_board_1[i])
-    
-    for i in range(300): 
->>>>>>> 3ca056087e45a44154dd8b74b8c36a024db215eb
-       
+   
+    # for i in range(300): 
+    while True:   
         coortinates, current_player = user_input(board_size,current_player)
 
         # clear_screen()
         print(current_player, coortinates)
         
         if current_player == 'Player_1':
-            board = test_board_1
+            board = placement_board_2
+            board2 = shooting_board_1
             for i in range(board_size):
             
-                print(board[i])
+                print(board[i], '|', board2[i])
+            print('-------------------------------------------')
+            
+              
                 # clear_screen()
+            # for i in range(board_size):
+               
         else:
-            board = test_board_2
+            board = placement_board_1
+            board2 = shooting_board_2
+        # print('placmet | shooting')    
+            print('  A    B    C    D       A    B    C    D')
             for i in range(board_size):
             
-                print(board[i])
+                print(board[i], '|', board2[i])
+            print('-------------------------------------------')
+        # for i in range(board_size):
+        #     print(board2[i])
                 # clear_screen()
-        
+            # for i in range(board_size):
+    
         
     
 
+        # print(shooting_board_1)
          
-        print(strz(board,coortinates))
+        # print(strz(board,coortinates))
 
-        czynnosc = strz(board,coortinates)
-        user_shoot(coortinates, board, czynnosc)
+    # czynnosc = strz(board,coortinates)
+        # user_shoot(coortinates, board, czynnosc)
         # for i in range(board_size):a4
     
             
