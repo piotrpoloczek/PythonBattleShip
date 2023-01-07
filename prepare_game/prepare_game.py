@@ -7,7 +7,7 @@ from player.player_attributes import set_player_name, set_player_placement_board
 def prepare_player(board_size):
     player_1 = {}
     set_player_name(player_1, prepare_user_name())
-    set_player_placement_board(player_1, (board_size))
+    set_player_placement_board(player_1, prepare_empty_board(board_size))
     set_player_shooting_board(player_1, prepare_empty_board(board_size))
     return player_1
 

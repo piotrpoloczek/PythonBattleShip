@@ -1,3 +1,5 @@
+from player.player_attributes import get_player_name, get_player_placement_board, get_player_shooting_board
+
 #import board
 import copy
 """
@@ -27,6 +29,7 @@ def check_coordinate_is_in_board(coordinate_x,coordinate_y):
 
 def check_coordinate_is_free(board,coordinate_x,coordinate_y):
     try:
+        print(board)
         return board[coordinate_x][coordinate_y] == '0'
     except IndexError:
         return False
@@ -191,9 +194,8 @@ Dzięki tej funkcji tylko ta funkcję importujemy w module battleships i mamy sp
 def ships_placement(players):
     player_1 = players[0]
     player_2 = players[1]
-
-    player_ships_placement(player_1['placement_board'])
-    player_ships_placement(player_2['placement_board'])
+    player_ships_placement(get_player_placement_board(player_1))
+    player_ships_placement(get_player_placement_board(player_2))
     
     # znowu eksportujemy listę z playerami tylko tym razem mają już umieszczone wszystkie statki
     return [player_1, player_2]
@@ -208,8 +210,8 @@ def validate_user_input():
 
 
 
-board=[['0', '0', '0', '0','0'],['0', '0', '0', '0','0'],['0', '0', '0', '0','0'],['0', '0', '0', '0','0'],['0', '0', '0', '0','0']]
-ships_placement(board)
+#board=[['0', '0', '0', '0','0'],['0', '0', '0', '0','0'],['0', '0', '0', '0','0'],['0', '0', '0', '0','0'],['0', '0', '0', '0','0']]
+#ships_placement(board)
 
 
 
