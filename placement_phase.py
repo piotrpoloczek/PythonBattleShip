@@ -8,6 +8,9 @@ input similar to [['0', '0', '0', '0'],['0', '0', '0', '0'],['0', '0', '0', '0']
 BOARD_SIZE = 5
 
 
+'''
+to wydaje mi się że nie będzię już potrzebne ponieważ używasz dictionary z playerem i tablicami
+'''
 def create_boad():
     board = []
     for i in range(BOARD_SIZE):
@@ -66,6 +69,10 @@ def ask_for_coordinates(board):
         else:
             print('Bad coordinates')
 
+
+'''
+tą funkcję można myślę będzie wrzucić do osobnego modułu ale na razie niech tutaj zostanie
+'''
 def number_of_ships():
     number_of_ships = [1,1,1,2,2]
     return number_of_ships
@@ -152,7 +159,10 @@ def place_ship(board,coordinate_x,coordinate_y,orientation,ship_size):
     #     return board
 
 
-def ships_placement(board):
+'''
+To mogłoby być 'player_ships_placement' dlatego że funkcja obsługuje tylko jednego playera
+'''
+def player_ships_placement(board):
     print(board)
     ships_to_place = number_of_ships()
     for i in ships_to_place:
@@ -170,7 +180,26 @@ def ships_placement(board):
             else:
                 print('The ship is wrong placed')
 
+'''
+i tu można by było zrobic funkcję ships_placement
+tutaj można by użyć funkcji które zrobiłem w repop 'piotrpoloczek' w module player, 
+tam są gettery i settery do wykorzystania, ale to na zadanie domowe importowanie modułów ;)
 
+Dzięki tej funkcji tylko ta funkcję importujemy w module battleships i mamy sprawę załatwioną.
+Łukasz ma trudniejsze zadanie bo rzeczywiście musi zmieniać użytkownika.
+'''
+def ships_placement(players):
+    player_1 = players[0]
+    player_2 = players[1]
+
+    player_ships_placement(player_1['placement_board'])
+    player_ships_placement(player_2['placement_board'])
+    
+    # znowu eksportujemy listę z playerami tylko tym razem mają już umieszczone wszystkie statki
+    return [player_1, player_2]
+
+
+# to jeśli nie jest potrzebne to proponuję wyrzucić ;)
 def ask_user_input():
     pass
 
