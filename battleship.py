@@ -7,7 +7,7 @@ from placement_phase.placement_phase import ships_placement
 def main_loop():
     players = prepare_game()
     print(players)
-    players = placement(players)
+    players = ships_placement(players)
     #shooting(players)
 
     #example how to use the print_board function in other modules
