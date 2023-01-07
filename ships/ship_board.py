@@ -1,2 +1,3 @@
 def return_ships(board_size):
-    pass
+    ships_dimension = 4
+    
