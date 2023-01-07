@@ -48,124 +48,133 @@ def user_input(size_of_the_board,current_player):
             continue
 
 
-    res_user_shoot = (row_number(size_of_the_board).index(user_shoot[0]),int(user_shoot[1])-1)
+    res_user_shoot = (int(user_shoot[1])-1,row_number(size_of_the_board).index(user_shoot[0]))
     current_player = change_player(current_player)
    
     return res_user_shoot, current_player
 
-def user_shoot(coordinates, test_board, czynnosc ):
-    cor_vertical = coordinates[0]
-    cor_horizontal = coordinates[1]
-    test_board[cor_horizontal][cor_vertical] = czynnosc
-    return test_board
-
-    
-    
 
   
 def main():      
     # clear_screen()
+    game = True  
+    
     
     current_player = "Player_1"
-    placement_board_1 =  [['0', 'X', '0', '0'],
-                          ['0', 'X', '0', 'X'],
-                          ['0', '0', '0', '0'],
-                          ['0', '0', 'X', '0']]
+    placement_board_1 = [['0', 'X', '0'],['0', 'X', '0'],['0', '0', '0']]
+    placement_board_2 = [['X', '0', 'X'],['X', '0', '0'],['0', 'X', '0']]
 
-
-    placement_board_2 = [['X', '0', 'X', '0'],
-                         ['X', '0', '0', '0'],
-                         ['0', 'X', '0', '0'],
-                         ['0', '0', '0', '0']]
-
-    shooting_board_1 =   [['0', '0', '0', '0'],
-                          ['0', '0', '0', '0'],
-                          ['0', '0', '0', '0'],
-                          ['0', '0', '0', '0']]
-
-
-    shooting_board_2 =  [['0', '0', '0', '0'],
-                         ['0', '0', '0', '0'],
-                         ['0', '0', '0', '0'],
-                         ['0', '0', '0', '0']]
-
-
-
-
-    board_size = len(placement_board_1)
-    # print(test_board_1)
-    
-    # for i in range(board_size):
-            
-    #             print(test_board_1[i])
    
-    # for i in range(300): 
-    while True:   
-        coortinates, current_player = user_input(board_size,current_player)
+    board_size = len(placement_board_1)
+    shooting_board_1 = create_board(board_size)
+    shooting_board_2 = create_board(board_size)
 
-        # clear_screen()
-        print(current_player, coortinates)
+    while game == True:   
         
+    
+        print_headerer(board_size)
         if current_player == 'Player_1':
             board = placement_board_2
             board2 = shooting_board_1
+            # print('!!!!!!!!!!!!!!!!!!!!!!')
+            # print(board)
+            # print(board2)
+            # print('!!!!!!!!!!!!!!!!!!!!!!')
+            
             for i in range(board_size):
             
                 print(board[i], '|', board2[i])
             print('-------------------------------------------')
-            
-              
-                # clear_screen()
-            # for i in range(board_size):
+           
+         
                
         else:
             board = placement_board_1
             board2 = shooting_board_2
-        # print('placmet | shooting')    
-            print('  A    B    C    D       A    B    C    D')
+            
             for i in range(board_size):
             
+                # 
                 print(board[i], '|', board2[i])
             print('-------------------------------------------')
-        # for i in range(board_size):
-        #     print(board2[i])
-                # clear_screen()
-            # for i in range(board_size):
-    
+        coordinates, current_player = user_input(board_size,current_player)
         
-    
 
-        # print(shooting_board_1)
-         
-        # print(strz(board,coortinates))
+        # clear_screen()
+        # print(current_player, coordinates)
+        print(strz(board,board2, coordinates))
+        check_sink(board2,coordinates)
+        # print(check_nearest(board, coordinates))
+        # print(board2)
 
-    # czynnosc = strz(board,coortinates)
-        # user_shoot(coortinates, board, czynnosc)
-        # for i in range(board_size):a4
+def create_board(board_size):
     
+        board = []
+        for i in range(board_size):
+            sub_board = []
+            for j in range(board_size):
+                sub_board.append(('0')) 
+            board.append(sub_board)
+        return board
             
-        #         print(board[i])
-        #     # if len(list_available_coordinates(board)) == 0:
-            #     print('nie ma wiecej ruchow')
-# def update(coortinates, board):
-#     board[coortinates[0],coortinates[1]] = "M"
-
-
-def strz(board, coortinates):
-    # czynnosc = None
-    # if coortinates in list_missed_shots(board):
-    #     print('tu juz strzelales')
-    #     czynnosc = 'M'
-    if coortinates in list_placed_ships(board):
-        czynnosc = 'S'
-        return czynnosc
-        
-    elif coortinates  in list_available_coordinates(board):
-        czynnosc = 'M'
+def intersection(lst1, lst2):
+    temp = set(lst2)
+    lst3 = [value for value in lst1 if value in temp]
+    return lst3
     
+    # return list(set(lst1) & set(lst2))
+ 
+def check_sink(board2,coordinatess):
+    print("@@@@@@ sprawdza najblizsze @@@@@@@@@")
+    
+    print(check_nearest(coordinatess))
+    list_of = intersection(check_nearest(coordinatess),list_hited_ships(board2))
+    print("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@")
+    
+   
+    
+    
+  
+
         
-        return czynnosc
-              
+
+
+def strz(board,board2, coordinatess):
+   
+    if coordinatess in list_placed_ships(board):
+        board2[coordinatess[0]][coordinatess[1]] = 'H'
+        text = "You've hit a ship!"
+       
+    else:
+        board2[coordinatess[0]][coordinatess[1]] = 'M'
+        text = "You've missed!" 
+    
+
+    return text
+
+
+
+
+    
+
+       
+def check_nearest(coordin):
+    
+    # return_coordinates_with_item(board,'X')
+    # print(return_coordinates_with_item(board, 'X'))
+    
+    test_coor = []
+    
+
+    test_coor.append((coordin[0]+1,coordin[1]))
+    test_coor.append((coordin[0],coordin[1]+1))
+    test_coor.append((coordin[0]-1,coordin[1]))
+    test_coor.append((coordin[0],coordin[1]-1))
+    
+
+    return test_coor
+
+
 
 def return_coordinates_with_item(board, searched_item):
     return [(row_index, item_index) for row_index, row in enumerate(board) for item_index, item in enumerate(row) if item == searched_item]
@@ -182,10 +191,19 @@ def list_missed_shots(board):
 def list_placed_ships(board):
     return return_coordinates_with_item(board, 'X')
 
+def list_hited_ships(board):
+    return return_coordinates_with_item(board, 'H')
         
-                
-    # print(current_player, coortinates)
-
+def print_headerer(board_size):
+    
+    for i in range(board_size):
+            headerer_letter = row_number(board_size)
+            print(' ', end=" ")
+            if i != board_size - 1 :
+                print(headerer_letter[i],end="  ")
+            else:
+                print(f'{headerer_letter[i]}')
+    return None
 
 if __name__ == "__main__":
     main()
