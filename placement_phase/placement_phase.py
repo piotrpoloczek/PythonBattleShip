@@ -1,39 +1,18 @@
 from player.player_attributes import get_player_name, get_player_placement_board, get_player_shooting_board
+from printing_board.printing import print_board
 
-#import board
 import copy
-"""
-Implement the placement phase of the battleship program where players can place ships on a board.
-input similar to [['0', '0', '0', '0'],['0', '0', '0', '0'],['0', '0', '0', '0'],['0', '0', '0', '0']]
-"""
-
-BOARD_SIZE = 5
-
-
-'''
-to wydaje mi się że nie będzię już potrzebne ponieważ używasz dictionary z playerem i tablicami
-'''
-def create_boad():
-    board = []
-    for i in range(BOARD_SIZE):
-        sub_board = []
-        for j in range(BOARD_SIZE):
-            sub_board.append(('0'))
-        board.append(sub_board)
-    print(board)
 
 
 def check_coordinate_is_in_board(coordinate_x,coordinate_y):
     return 0 <= coordinate_x <= BOARD_SIZE-1 and 0 <= coordinate_y <= BOARD_SIZE-1
 
-
 def check_coordinate_is_free(board,coordinate_x,coordinate_y):
     try:
-        print(board)
+        print_board(board)
         return board[coordinate_x][coordinate_y] == '0'
     except IndexError:
         return False
-
 
 def translate_coordinates(coordinates):
     coordinate_x = 0
@@ -71,7 +50,6 @@ def ask_for_coordinates(board):
             return (coordinate_x,coordinate_y)
         else:
             print('Bad coordinates')
-
 
 '''
 tą funkcję można myślę będzie wrzucić do osobnego modułu ale na razie niech tutaj zostanie
@@ -166,7 +144,7 @@ def place_ship(board,coordinate_x,coordinate_y,orientation,ship_size):
 To mogłoby być 'player_ships_placement' dlatego że funkcja obsługuje tylko jednego playera
 '''
 def player_ships_placement(board):
-    print(board)
+    print_board(board)
     ships_to_place = number_of_ships()
     for i in ships_to_place:
         while True:
@@ -177,7 +155,7 @@ def player_ships_placement(board):
             else:
                 orientation = 'vertical'
             board, is_ship_placed = place_ship(board,coordinate_x,coordinate_y,orientation,i)
-            print(board)
+            print_board(board)
             if is_ship_placed:
                 break
             else:
