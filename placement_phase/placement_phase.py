@@ -4,6 +4,7 @@ from printing_board.printing import print_board
 import copy
 
 
+# Nie można używac BOARD size powinien być len(board), board jako argument funkcji.
 def check_coordinate_is_in_board(coordinate_x,coordinate_y):
     return 0 <= coordinate_x <= BOARD_SIZE-1 and 0 <= coordinate_y <= BOARD_SIZE-1
 
