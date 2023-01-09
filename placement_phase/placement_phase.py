@@ -3,11 +3,9 @@ from printing_board.printing import print_board
 
 import copy
 
-BOARD_SIZE = 5
 
-# Nie można używac BOARD size powinien być len(board), board jako argument funkcji.
-def check_coordinate_is_in_board(coordinate_x,coordinate_y):
-    return 0 <= coordinate_x <= BOARD_SIZE-1 and 0 <= coordinate_y <= BOARD_SIZE-1
+def check_coordinate_is_in_board(coordinate_x,coordinate_y,board):
+    return 0 <= coordinate_x <= len(board) and 0 <= coordinate_y <= len(board)
 
 def check_coordinate_is_free(board,coordinate_x,coordinate_y):
     try:
@@ -48,7 +46,7 @@ def ask_for_coordinates(board):
         coordinate_x, coordinate_y= translate_coordinates(coordinates)
         if coordinate_x == 'Bad' or coordinate_y == 'Bad':
             print('bad coordinates')
-        elif check_coordinate_is_in_board(coordinate_x,coordinate_y) and check_coordinate_is_free(board,coordinate_x,coordinate_y):
+        elif check_coordinate_is_in_board(coordinate_x,coordinate_y,board) and check_coordinate_is_free(board,coordinate_x,coordinate_y):
             return (coordinate_x,coordinate_y)
         else:
             print('Bad coordinates')
@@ -62,9 +60,9 @@ def number_of_ships():
 
 def ask_for_orientation():
     while True:
-        orientation = input('You want to place the ship in horizontal or vertical?\n')
+        orientation = input('You want to place the ship in left or down?\n')
         orientation = orientation.lower()
-        if orientation == 'horizontal' or orientation == 'vertical':
+        if orientation == 'left' or orientation == 'down':
             return orientation
         else:
             print('Bad orientation')
@@ -101,7 +99,7 @@ def check_for_near_ships_vertical(board,coordinate_x,coordinate_y):
 
 def place_ship(board,coordinate_x,coordinate_y,orientation,ship_size):
     board_copy = copy.deepcopy(board)
-    if orientation == 'vertical':
+    if orientation == 'left':
         try:
             if check_coordinate_is_in_board(coordinate_x,coordinate_y-1) and board_copy[coordinate_x][coordinate_y-1] == 'X':
                 print('Ship is to close to another ship')
@@ -119,7 +117,7 @@ def place_ship(board,coordinate_x,coordinate_y,orientation,ship_size):
                 return board_copy, True
             else:
                 return board,False
-    elif orientation == 'horizontal':
+    elif orientation == 'down':
         try:
             if check_coordinate_is_in_board(coordinate_x-1,coordinate_y) and board_copy[coordinate_x-1][coordinate_y] == 'X':
                 print('Ship is to close to another ship')
@@ -155,7 +153,7 @@ def player_ships_placement(board):
             if i != 1:
                 orientation = ask_for_orientation()
             else:
-                orientation = 'vertical'
+                orientation = 'down'
             board, is_ship_placed = place_ship(board,coordinate_x,coordinate_y,orientation,i)
             print_board(board)
             if is_ship_placed:
@@ -180,13 +178,6 @@ def ships_placement(players):
     # znowu eksportujemy listę z playerami tylko tym razem mają już umieszczone wszystkie statki
     return [player_1, player_2]
 
-
-# to jeśli nie jest potrzebne to proponuję wyrzucić ;)
-def ask_user_input():
-    pass
-
-def validate_user_input():
-    pass
 
 
 
