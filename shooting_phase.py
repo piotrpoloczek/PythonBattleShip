@@ -60,14 +60,12 @@ def gamewin(board, board2):
     return text
 
 
-def game_shooting():
+def game_shooting(placement_board_1, placement_board_2, current_player = "Player_1"):
         game = True  
         
         
         current_player = "Player_1"
-        placement_board_1 = [['0', 'X', '0'],['0', 'X', '0'],['0', '0', '0']]
-        placement_board_2 = [['X', '0', 'X'],['X', '0', '0'],['0', 'X', '0']]
-
+        
     
         board_size = len(placement_board_1)
         shooting_board_1 = create_board(board_size)
@@ -103,7 +101,10 @@ def game_shooting():
             # check_sink(board2,coordinates)
 def main():      
     # clear_screen()
-  game_shooting()
+    placement_board_1 = [['0', 'X', '0'],['0', 'X', '0'],['0', '0', '0']]
+    placement_board_2 = [['X', '0', 'X'],['X', '0', '0'],['0', 'X', '0']]
+
+    game_shooting(placement_board_1,placement_board_2)
        
 
 def create_board(board_size):
