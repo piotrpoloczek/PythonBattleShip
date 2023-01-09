@@ -1,17 +1,29 @@
 from os import system, name
 
+
+'''
+wartości powinny być pobierane z listy playerów a nie nadawane na stałe
+dzięki temu będzie można korzystać z nazw użytkownika zadanych na początku
+'''
+# switching players
 # swiching player function
 def change_player(player):
     if player == 'Player_2':
         player = 'Player_1'
     else:
-        player == 'Player_1'
+        # tego chyba już nie musi być player == 'Player_1'
         player = 'Player_2'
 
     return player 
 
 
 # create list of alphabetic coordinates depends on size of the board
+'''
+nie będziesz miał board size, będziesz miał tylko i wyłącznie board więc board_size
+musisz sobie zmierzyć przez len()
+
+tylko nie wiem do czego ta funkcja?
+'''
 def row_number(board_size = 5):
     rows = []
     for i in range(65, 65+board_size, 1):
@@ -68,6 +80,9 @@ def game_shooting(placement_board_1, placement_board_2, current_player = "Player
         
     
         board_size = len(placement_board_1)
+
+        # tutaj bysd musiał pobrać i rozpakować z listy
+        # możesz użyć modułów 
         shooting_board_1 = create_board(board_size)
         shooting_board_2 = create_board(board_size)
 
