@@ -17,6 +17,8 @@ def check_coordinate_is_free(board,coordinate_x,coordinate_y):
 def translate_coordinates(coordinates):
     coordinate_x = 0
     coordinate_y = 0
+    if coordinates == '':
+        return 'Bad','Bad'
     letter = coordinates[0].lower()
     possible = list(map(chr, range(97, 128)))
     for i in possible:
@@ -181,8 +183,8 @@ def ships_placement(players):
 
 
 
-#board=[['0', '0', '0', '0','0'],['0', '0', '0', '0','0'],['0', '0', '0', '0','0'],['0', '0', '0', '0','0'],['0', '0', '0', '0','0']]
-#ships_placement(board)
+# board=[['0', '0', '0', '0','0'],['0', '0', '0', '0','0'],['0', '0', '0', '0','0'],['0', '0', '0', '0','0'],['0', '0', '0', '0','0']]
+# print(ask_for_coordinates(board))
 
 
 
@@ -190,10 +192,6 @@ def ships_placement(players):
 
 
 
-# if __name__ == '__main__':
-#     battleship_board = board.return_empty_board(5, 5)
-#     test_board_1 = [['0', '0', '0', '0'],['0', '0', '0', '0'],['X', '0', 'X', '0'],['0', 'X', 'X', 'X']]
-#     test_board_2 = [['0', '0', '0', '0'],['0', '0', '0', '0'],['0', '0', '0', '0'],['0', '0', '0', '0']]
-#     print(check_available_coordinates(battleship_board))
-#     print(check_available_coordinates(test_board_1))
-#     print(check_available_coordinates(test_board_2))
+if __name__ == '__main__':
+    board=[['0', '0', '0', '0','0'],['0', '0', '0', '0','0'],['0', '0', '0', '0','0'],['0', '0', '0', '0','0'],['0', '0', '0', '0','0']]
+    print(ask_for_coordinates(board))
