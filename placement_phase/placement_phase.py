@@ -62,9 +62,9 @@ def number_of_ships():
 
 def ask_for_orientation():
     while True:
-        orientation = input('You want to place the ship in left or down?\n')
+        orientation = input('You want to place the ship in right or down?\n')
         orientation = orientation.lower()
-        if orientation == 'left' or orientation == 'down':
+        if orientation == 'right' or orientation == 'down':
             return orientation
         else:
             print('Bad orientation')
@@ -72,17 +72,17 @@ def ask_for_orientation():
 
 def check_for_near_ships_horizontal(board,coordinate_x,coordinate_y):
     try:
-        if board[coordinate_x][coordinate_y-1] != 'X' or board[coordinate_x+1][coordinate_y] != 'X' or board[coordinate_x][coordinate_y-1] != 'X':
-            return True
-        else:
+        if board[coordinate_x][coordinate_y-1] == 'X' or board[coordinate_x+1][coordinate_y] == 'X' or board[coordinate_x][coordinate_y-1] == 'X':
             print('Ship is to close to another ship')
             return False
+        else:
+            return True
     except IndexError:
-        if board[coordinate_x][coordinate_y-1] != 'X' or board[coordinate_x+1][coordinate_y] != 'X' or board[coordinate_x][coordinate_y-1] != 'X':
-            return True
+        if board[coordinate_x][coordinate_y-1] == 'X' or board[coordinate_x+1][coordinate_y] == 'X' or board[coordinate_x][coordinate_y-1] == 'X':
+            return False
         else:
             print('Ship is to close to another ship')
-            return False
+            return True
 
 
 def check_for_near_ships_vertical(board,coordinate_x,coordinate_y):
@@ -94,16 +94,16 @@ def check_for_near_ships_vertical(board,coordinate_x,coordinate_y):
             return True
     except IndexError:
         if board[coordinate_x-1][coordinate_y] == 'X' or board[coordinate_x][coordinate_y+1] == 'X' or board[coordinate_x+1][coordinate_y] == 'X':
-            print('Ship is to close to another ship')
             return False
         else:
+            print('Ship is to close to another ship')
             return True
 
 def place_ship(board,coordinate_x,coordinate_y,orientation,ship_size):
     board_copy = copy.deepcopy(board)
-    if orientation == 'left':
+    if orientation == 'right':
         try:
-            if check_coordinate_is_in_board(coordinate_x,coordinate_y-1) and board_copy[coordinate_x][coordinate_y-1] == 'X':
+            if check_coordinate_is_in_board(coordinate_x,coordinate_y-1,board) and board_copy[coordinate_x][coordinate_y-1] == 'X':
                 print('Ship is to close to another ship')
                 return board,False
             for i in range(0,ship_size):
@@ -114,14 +114,14 @@ def place_ship(board,coordinate_x,coordinate_y,orientation,ship_size):
                     return board,False
             return board_copy,True
         except IndexError:
-            if check_coordinate_is_in_board(coordinate_x,coordinate_y) and check_coordinate_is_free(board_copy,coordinate_x,coordinate_y) and (ship_size == 1 or i == ship_size-1):
+            if check_coordinate_is_in_board(coordinate_x,coordinate_y,board) and check_coordinate_is_free(board_copy,coordinate_x,coordinate_y) and (ship_size == 1 or i == ship_size-1):
                 board_copy[coordinate_x][coordinate_y] = 'X'
                 return board_copy, True
             else:
                 return board,False
     elif orientation == 'down':
         try:
-            if check_coordinate_is_in_board(coordinate_x-1,coordinate_y) and board_copy[coordinate_x-1][coordinate_y] == 'X':
+            if check_coordinate_is_in_board(coordinate_x-1,coordinate_y,board) and board_copy[coordinate_x-1][coordinate_y] == 'X':
                 print('Ship is to close to another ship')
                 return board,False
             for i in range(0,ship_size):
@@ -132,7 +132,7 @@ def place_ship(board,coordinate_x,coordinate_y,orientation,ship_size):
                     return board,False
             return board_copy,True
         except IndexError:
-            if check_coordinate_is_in_board(coordinate_x,coordinate_y) and check_coordinate_is_free(board_copy,coordinate_x,coordinate_y) and (ship_size == 1 or i == ship_size-1):
+            if check_coordinate_is_in_board(coordinate_x,coordinate_y,board) and check_coordinate_is_free(board_copy,coordinate_x,coordinate_y) and (ship_size == 1 or i == ship_size-1):
                 board_copy[coordinate_x][coordinate_y] = 'X'
                 return board_copy, True
             else:
