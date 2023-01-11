@@ -1,6 +1,7 @@
 from player.player_attributes import get_player_name, get_player_placement_board, get_player_shooting_board
 from printing_board.printing import print_board
 from coordinates.coordinates_function import ask_for_coordinates,check_coordinate_is_in_board,cell_contains_value;
+from prepare_game.prepare_difficulity import number_of_ships
 from prepare_game.const import EMPTY_CELL, SHIP_IN_CELL
 
 import copy
@@ -9,10 +10,6 @@ import copy
 '''
 tą funkcję można myślę będzie wrzucić do osobnego modułu ale na razie niech tutaj zostanie
 '''
-def number_of_ships():
-    number_of_ships = [1,1,1,2,2]
-    return number_of_ships
-
 def ask_for_orientation():
     while True:
         orientation = input('You want to place the ship in right or down?\n')

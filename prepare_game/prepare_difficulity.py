@@ -31,3 +31,7 @@ def return_dimension():
             board_size_error()
     
     return board_size
+
+def number_of_ships():
+    number_of_ships = [1,1,1,2,2]
+    return number_of_ships
