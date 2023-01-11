@@ -1,80 +1,230 @@
-player_1 = {
-    'name': 'Piotr',
-    'shooting_board': [
-        ['0', '0', '0', '0', '0'],
-        ['0', '0', '0', '0', '0'],
-        ['0', '0', '0', '0', '0'],
-        ['0', '0', '0', '0', '0'],
-        ['0', '0', '0', '0', '0']],
-    'placement_board': [
-        ['0', '0', 'X', '0', '0'],
-        ['X', '0', 'X', '0', '0'],
-        ['X', '0', 'X', '0', '0'],
-        ['0', '0', 'X', '0', '0'],
-        ['0', '0', '0', 'X', 'X']],
-}
+from os import system, name
 
-player_2 = {
-    'name': 'Łukasz',
-    'shooting_board': [
-        ['0', '0', '0', '0', '0'],
-        ['0', '0', '0', '0', '0'],
-        ['0', '0', '0', '0', '0'],
-        ['0', '0', '0', '0', '0'],
-        ['0', '0', '0', '0', '0']],
-    'placement_board': [
-        ['0', '0', 'X', '0', '0'],
-        ['X', '0', 'X', '0', '0'],
-        ['X', '0', 'X', '0', '0'],
-        ['0', '0', 'X', '0', '0'],
-        ['0', '0', '0', 'X', 'X']],
-}
 
-def error_msg():
-    pass
-
-def coordinate_outside_board():
-    pass
-
-def coordinate_already_shooted():
-    pass
-
-def get_user_input():
-    return input("Please enter the coordinates: ")
-
-def validate_user_input():
-    pass
-
-def return_coordinates():
-    pass
-
-def check_shoot(shooting_board_player_1, placement_board_player_2, coordinates):
-    pass
-
-def shoot_success(shooting_board_player_1):
-    #add shoted to the board
-    pass
-
-def shoot_fail(shooting_board_player_2):
-    #add missed to the board
-    pass
-
-def shoot(shooting_board_player_1, placement_board_player_2, coordinates):
-    if check_shoot(shooting_board_player_1, placement_board_player_2, coordinates) is True:
-        return shoot_success(shooting_board_player_1)
+'''
+wartości powinny być pobierane z listy playerów a nie nadawane na stałe
+dzięki temu będzie można korzystać z nazw użytkownika zadanych na początku
+'''
+# switching players
+# swiching player function
+def change_player(player):
+    if player == 'Player_2':
+        player = 'Player_1'
     else:
-        return shoot_fail(shooting_board_player_1)
+        # tego chyba już nie musi być player == 'Player_1'
+        player = 'Player_2'
 
-def shooting_phase(shooting_board_player_1, placement_board_player_2):
-    user_turn = True
+    return player 
 
-    while user_turn:
-        user_input = get_user_input()
-        if validate_user_input(user_input, shooting_board_player_1, placement_board_player_2) is True:
-            coordinates = return_coordinates(user_input)
-            shoot(shooting_board_player_1, placement_board_player_2, coordinates)
-            user_turn = False
+
+# create list of alphabetic coordinates depends on size of the board
+'''
+nie będziesz miał board size, będziesz miał tylko i wyłącznie board więc board_size
+musisz sobie zmierzyć przez len()
+
+tylko nie wiem do czego ta funkcja?
+'''
+def row_number(board_size = 5):
+    rows = []
+    for i in range(65, 65+board_size, 1):
+        rows.append(chr(i))
+    return rows
+
+def quit_from_application(quit_command):
+     if quit_command.upper() == 'QUIT':
+            exit()
+
+def clear_screen():
+    if name == 'nt':
+        _ = system('cls')
+    else:
+        _ = system('clear')
+
+#function validate size of input string, scope of input string and return coordinates in form (x,y) and current player after move. scope 26x26
+def user_input(size_of_the_board,current_player):
+    
+    while True:
+        user_shoot = input("Make a shoot :").upper()
+
+        quit_from_application(user_shoot)
+       
+        if len(user_shoot) == 2 and user_shoot[1].isalpha() != True \
+            and user_shoot[0].isalpha() == True \
+            and int(user_shoot[1]) in range(1, size_of_the_board + 1) \
+            and user_shoot[0] in row_number(size_of_the_board):
+            # print(row_number(size_of_the_board))
+            break
         else:
-            # some error message should be there
-            error_msg(user_input, shooting_board_player_1, placement_board_player_2)
+            clear_screen()
+            print('Invaild input!')
+            continue
 
+
+    res_user_shoot = (int(user_shoot[1])-1,row_number(size_of_the_board).index(user_shoot[0]))
+    current_player = change_player(current_player)
+   
+    return res_user_shoot, current_player
+
+def gamewin(board, board2):
+    if len(list_placed_ships(board)) == len(list_shooted_ships(board2)):
+        text = "Koniec gry"
+        
+    return text
+
+
+def game_shooting(placement_board_1, placement_board_2, current_player = "Player_1"):
+        game = True  
+        
+        
+        current_player = "Player_1"
+        
+    
+        board_size = len(placement_board_1)
+
+        # tutaj bysd musiał pobrać i rozpakować z listy
+        # możesz użyć modułów 
+        shooting_board_1 = create_board(board_size)
+        shooting_board_2 = create_board(board_size)
+
+        while game == True:   
+            
+        
+            print_headerer(board_size)
+            if current_player == 'Player_1':
+                board = placement_board_2
+                board2 = shooting_board_1
+            
+                for i in range(board_size):
+                
+                    print(board[i], '|', board2[i])
+                print('-------------------------------------------')
+            
+            
+                
+            else:
+                board = placement_board_1
+                board2 = shooting_board_2
+                
+                for i in range(board_size):
+                
+                    print(board[i], '|', board2[i])
+                print('-------------------------------------------')
+            coordinates, current_player = user_input(board_size,current_player)
+            
+
+            print(strz(board,board2, coordinates))
+            # check_sink(board2,coordinates)
+def main():      
+    # clear_screen()
+    placement_board_1 = [['0', 'X', '0'],['0', 'X', '0'],['0', '0', '0']]
+    placement_board_2 = [['X', '0', 'X'],['X', '0', '0'],['0', 'X', '0']]
+
+    game_shooting(placement_board_1,placement_board_2)
+       
+
+def create_board(board_size):
+    
+        board = []
+        for i in range(board_size):
+            sub_board = []
+            for j in range(board_size):
+                sub_board.append(('0')) 
+            board.append(sub_board)
+        return board
+            
+def intersection(lst1, lst2):
+    # temp = set(lst2)
+    # lst3 = [value for value in lst1 if value in temp]
+    # return lst3
+    
+    return list(set(lst1) & set(lst2))
+ 
+def check_sink(board2,coordinatess):
+    
+   
+    list_of = intersection(check_nearest(coordinatess),list_hited_ships(board2))
+    # print(list_of)
+    c = coordinatess[0]
+    d = coordinatess[1]
+    
+    
+    for item in(list_of):
+        a = item[0]
+        b = item[1]
+        board2[a][b] = 'S'
+        board2[c][d] = 'S'
+        text = "You've sink a ship!"
+        
+   
+        return text
+        
+
+def strz(board,board2, coordinatess):
+   
+    
+   
+
+    if coordinatess in list_placed_ships(board):
+        board2[coordinatess[0]][coordinatess[1]] = 'H'
+        text = "You've hit a ship!"
+    
+    
+    else:
+        
+        board2[coordinatess[0]][coordinatess[1]] = 'M'
+        text = "You've missed!" 
+        
+
+    return text
+
+
+
+
+    
+
+       
+def check_nearest(coordin):
+    
+    test_coor = []
+    
+    test_coor.append((coordin[0]+1,coordin[1]))
+    test_coor.append((coordin[0],coordin[1]+1))
+    test_coor.append((coordin[0]-1,coordin[1]))
+    test_coor.append((coordin[0],coordin[1]-1))
+    
+
+    return test_coor
+
+
+
+def return_coordinates_with_item(board, searched_item):
+    return [(row_index, item_index) for row_index, row in enumerate(board) for item_index, item in enumerate(row) if item == searched_item]
+
+def list_available_coordinates(board):
+    return return_coordinates_with_item(board, '0')
+    
+def list_shooted_ships(board):
+    return return_coordinates_with_item(board, 'S')
+
+def list_missed_shots(board):
+    return return_coordinates_with_item(board, 'M')
+
+def list_placed_ships(board):
+    return return_coordinates_with_item(board, 'X')
+
+def list_hited_ships(board):
+    return return_coordinates_with_item(board, 'H')
+        
+def print_headerer(board_size):
+    
+    for i in range(board_size):
+            headerer_letter = row_number(board_size)
+            print(' ', end=" ")
+            if i != board_size - 1 :
+                print(headerer_letter[i],end="  ")
+            else:
+                print(f'{headerer_letter[i]}')
+    return None
+
+if __name__ == "__main__":
+    main()
