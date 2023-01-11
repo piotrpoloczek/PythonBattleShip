@@ -1,57 +1,10 @@
 from player.player_attributes import get_player_name, get_player_placement_board, get_player_shooting_board
 from printing_board.printing import print_board
+from coordinates.coordinates_function import ask_for_coordinates;
+from prepare_game.const import EMPTY_CELL, SHIP_IN_CELL
 
 import copy
 
-
-def check_coordinate_is_in_board(coordinate_x,coordinate_y,board):
-    return 0 <= coordinate_x <= len(board) and 0 <= coordinate_y <= len(board)
-
-def check_coordinate_is_free(board,coordinate_x,coordinate_y):
-    try:
-        print_board(board)
-        return board[coordinate_x][coordinate_y] == '0'
-    except IndexError:
-        return False
-
-def translate_coordinates(coordinates):
-    coordinate_x = 0
-    coordinate_y = 0
-    if coordinates == '':
-        return 'Bad','Bad'
-    letter = coordinates[0].lower()
-    possible = list(map(chr, range(97, 128)))
-    for i in possible:
-        if i == letter:
-            break
-        coordinate_x += 1
-
-    try:
-        coordinate_y = int(coordinates[1:])
-    except ValueError:
-        return 'Bad','Bad'
-
-    return (coordinate_x,coordinate_y-1)
-
-
-def check_available_coordinates(board):
-    available_coordinates = []
-    for row_index, row in enumerate(board):
-        for item_index, item in enumerate(row):
-            if item == '0':
-                available_coordinates.append((row_index, item_index))
-    return available_coordinates
-
-def ask_for_coordinates(board):
-    while True:
-        coordinates = input('enter coordinates\n')
-        coordinate_x, coordinate_y= translate_coordinates(coordinates)
-        if coordinate_x == 'Bad' or coordinate_y == 'Bad':
-            print('bad coordinates')
-        elif check_coordinate_is_in_board(coordinate_x,coordinate_y,board) and check_coordinate_is_free(board,coordinate_x,coordinate_y):
-            return (coordinate_x,coordinate_y)
-        else:
-            print('Bad coordinates')
 
 '''
 tą funkcję można myślę będzie wrzucić do osobnego modułu ale na razie niech tutaj zostanie
@@ -108,7 +61,7 @@ def place_ship(board,coordinate_x,coordinate_y,orientation,ship_size):
                 return board,False
             for i in range(0,ship_size):
                 if check_for_near_ships_vertical(board_copy,coordinate_x,coordinate_y) == True:
-                    board_copy[coordinate_x][coordinate_y] = 'X'
+                    board_copy[coordinate_x][coordinate_y] = SHIP_IN_CELL
                     coordinate_y += 1
                 else:
                     return board,False
@@ -151,7 +104,7 @@ def player_ships_placement(board):
     for i in ships_to_place:
         while True:
             print(f'place ship of size {i}')
-            coordinate_x,coordinate_y = ask_for_coordinates(board)
+            coordinate_x,coordinate_y = ask_for_coordinates(board, EMPTY_CELL)
             if i != 1:
                 orientation = ask_for_orientation()
             else:
