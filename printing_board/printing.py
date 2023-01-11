@@ -1,4 +1,3 @@
-from prettytable import PrettyTable
 from tabulate import tabulate
 import os, copy
 

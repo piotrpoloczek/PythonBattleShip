@@ -68,39 +68,26 @@ def user_input(size_of_the_board,current_player):
 def gamewin(board, board2):
     if len(list_placed_ships(board)) == len(list_shooted_ships(board2)):
         text = "Koniec gry"
-        
     return text
 
 
-def game_shooting(placement_board_1, placement_board_2, current_player = "Player_1"):
+def game_shooting(players):
+        print(players)
         game = True  
         
-        
         current_player = "Player_1"
-        
-    
         board_size = len(placement_board_1)
 
-        # tutaj bysd musiał pobrać i rozpakować z listy
-        # możesz użyć modułów 
-        shooting_board_1 = create_board(board_size)
-        shooting_board_2 = create_board(board_size)
-
         while game == True:   
-            
         
             print_headerer(board_size)
             if current_player == 'Player_1':
                 board = placement_board_2
                 board2 = shooting_board_1
-            
                 for i in range(board_size):
                 
                     print(board[i], '|', board2[i])
                 print('-------------------------------------------')
-            
-            
-                
             else:
                 board = placement_board_1
                 board2 = shooting_board_2
@@ -114,6 +101,7 @@ def game_shooting(placement_board_1, placement_board_2, current_player = "Player
 
             print(strz(board,board2, coordinates))
             # check_sink(board2,coordinates)
+
 def main():      
     # clear_screen()
     placement_board_1 = [['0', 'X', '0'],['0', 'X', '0'],['0', '0', '0']]
@@ -141,12 +129,10 @@ def intersection(lst1, lst2):
  
 def check_sink(board2,coordinatess):
     
-   
     list_of = intersection(check_nearest(coordinatess),list_hited_ships(board2))
     # print(list_of)
     c = coordinatess[0]
-    d = coordinatess[1]
-    
+    d = coordinatess[1] 
     
     for item in(list_of):
         a = item[0]
@@ -154,34 +140,17 @@ def check_sink(board2,coordinatess):
         board2[a][b] = 'S'
         board2[c][d] = 'S'
         text = "You've sink a ship!"
-        
-   
         return text
         
 
 def strz(board,board2, coordinatess):
-   
-    
-   
-
     if coordinatess in list_placed_ships(board):
         board2[coordinatess[0]][coordinatess[1]] = 'H'
         text = "You've hit a ship!"
-    
-    
     else:
-        
         board2[coordinatess[0]][coordinatess[1]] = 'M'
         text = "You've missed!" 
-        
-
     return text
-
-
-
-
-    
-
        
 def check_nearest(coordin):
     
@@ -216,7 +185,6 @@ def list_hited_ships(board):
     return return_coordinates_with_item(board, 'H')
         
 def print_headerer(board_size):
-    
     for i in range(board_size):
             headerer_letter = row_number(board_size)
             print(' ', end=" ")
