@@ -47,7 +47,7 @@ def ask_for_coordinates(board, cell_contains):
         coordinate_x, coordinate_y= translate_coordinates(coordinates)
         if coordinate_x == 'Bad' or coordinate_y == 'Bad':
             print('bad coordinates')
-        elif check_coordinate_is_in_board(coordinate_x,coordinate_y,board) and cell_contains(board,coordinate_x,coordinate_y, cell_contains):
+        elif check_coordinate_is_in_board(coordinate_x,coordinate_y,board) and cell_contains_value(board,coordinate_x,coordinate_y, cell_contains):
             return (coordinate_x,coordinate_y)
         else:
             print('Bad coordinates')

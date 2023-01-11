@@ -1,6 +1,6 @@
 from player.player_attributes import get_player_name, get_player_placement_board, get_player_shooting_board
 from printing_board.printing import print_board
-from coordinates.coordinates_function import ask_for_coordinates;
+from coordinates.coordinates_function import ask_for_coordinates,check_coordinate_is_in_board,cell_contains_value;
 from prepare_game.const import EMPTY_CELL, SHIP_IN_CELL
 
 import copy
@@ -25,13 +25,13 @@ def ask_for_orientation():
 
 def check_for_near_ships_horizontal(board,coordinate_x,coordinate_y):
     try:
-        if board[coordinate_x][coordinate_y-1] == 'X' or board[coordinate_x+1][coordinate_y] == 'X' or board[coordinate_x][coordinate_y-1] == 'X':
+        if board[coordinate_x][coordinate_y-1] == SHIP_IN_CELL or board[coordinate_x+1][coordinate_y] == SHIP_IN_CELL or board[coordinate_x][coordinate_y-1] == SHIP_IN_CELL:
             print('Ship is to close to another ship')
             return False
         else:
             return True
     except IndexError:
-        if board[coordinate_x][coordinate_y-1] == 'X' or board[coordinate_x+1][coordinate_y] == 'X' or board[coordinate_x][coordinate_y-1] == 'X':
+        if board[coordinate_x][coordinate_y-1] == SHIP_IN_CELL or board[coordinate_x+1][coordinate_y] == SHIP_IN_CELL or board[coordinate_x][coordinate_y-1] == SHIP_IN_CELL:
             return False
         else:
             print('Ship is to close to another ship')
@@ -40,13 +40,13 @@ def check_for_near_ships_horizontal(board,coordinate_x,coordinate_y):
 
 def check_for_near_ships_vertical(board,coordinate_x,coordinate_y):
     try:
-        if board[coordinate_x-1][coordinate_y] == 'X' or board[coordinate_x][coordinate_y+1] == 'X' or board[coordinate_x+1][coordinate_y] == 'X':
+        if board[coordinate_x-1][coordinate_y] == SHIP_IN_CELL or board[coordinate_x][coordinate_y+1] == SHIP_IN_CELL or board[coordinate_x+1][coordinate_y] == SHIP_IN_CELL:
             print('Ship is to close to another ship')
             return False
         else:
             return True
     except IndexError:
-        if board[coordinate_x-1][coordinate_y] == 'X' or board[coordinate_x][coordinate_y+1] == 'X' or board[coordinate_x+1][coordinate_y] == 'X':
+        if board[coordinate_x-1][coordinate_y] == SHIP_IN_CELL or board[coordinate_x][coordinate_y+1] == SHIP_IN_CELL or board[coordinate_x+1][coordinate_y] == SHIP_IN_CELL:
             return False
         else:
             print('Ship is to close to another ship')
@@ -56,7 +56,7 @@ def place_ship(board,coordinate_x,coordinate_y,orientation,ship_size):
     board_copy = copy.deepcopy(board)
     if orientation == 'right':
         try:
-            if check_coordinate_is_in_board(coordinate_x,coordinate_y-1,board) and board_copy[coordinate_x][coordinate_y-1] == 'X':
+            if check_coordinate_is_in_board(coordinate_x,coordinate_y-1,board) and board_copy[coordinate_x][coordinate_y-1] == SHIP_IN_CELL:
                 print('Ship is to close to another ship')
                 return board,False
             for i in range(0,ship_size):
@@ -67,26 +67,26 @@ def place_ship(board,coordinate_x,coordinate_y,orientation,ship_size):
                     return board,False
             return board_copy,True
         except IndexError:
-            if check_coordinate_is_in_board(coordinate_x,coordinate_y,board) and check_coordinate_is_free(board_copy,coordinate_x,coordinate_y) and (ship_size == 1 or i == ship_size-1):
-                board_copy[coordinate_x][coordinate_y] = 'X'
+            if check_coordinate_is_in_board(coordinate_x,coordinate_y,board) and cell_contains_value(board_copy,coordinate_x,coordinate_y,EMPTY_CELL) and (ship_size == 1 or i == ship_size-1):
+                board_copy[coordinate_x][coordinate_y] = SHIP_IN_CELL
                 return board_copy, True
             else:
                 return board,False
     elif orientation == 'down':
         try:
-            if check_coordinate_is_in_board(coordinate_x-1,coordinate_y,board) and board_copy[coordinate_x-1][coordinate_y] == 'X':
+            if check_coordinate_is_in_board(coordinate_x-1,coordinate_y,board) and board_copy[coordinate_x-1][coordinate_y] == SHIP_IN_CELL:
                 print('Ship is to close to another ship')
                 return board,False
             for i in range(0,ship_size):
                 if check_for_near_ships_horizontal(board_copy,coordinate_x,coordinate_y) == True:
-                    board_copy[coordinate_x][coordinate_y] = 'X'
+                    board_copy[coordinate_x][coordinate_y] = SHIP_IN_CELL
                     coordinate_x += 1
                 else:
                     return board,False
             return board_copy,True
         except IndexError:
-            if check_coordinate_is_in_board(coordinate_x,coordinate_y,board) and check_coordinate_is_free(board_copy,coordinate_x,coordinate_y) and (ship_size == 1 or i == ship_size-1):
-                board_copy[coordinate_x][coordinate_y] = 'X'
+            if check_coordinate_is_in_board(coordinate_x,coordinate_y,board) and cell_contains_value(board_copy,coordinate_x,coordinate_y,EMPTY_CELL) and (ship_size == 1 or i == ship_size-1):
+                board_copy[coordinate_x][coordinate_y] = SHIP_IN_CELL
                 return board_copy, True
             else:
                 return board,False
