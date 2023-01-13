@@ -1,74 +1,34 @@
 from os import system, name
+from player.player_attributes import get_player_name, get_player_placement_board, get_player_shooting_board
 
 
-'''
-wartości powinny być pobierane z listy playerów a nie nadawane na stałe
-dzięki temu będzie można korzystać z nazw użytkownika zadanych na początku
-'''
-# switching players
-# swiching player function
-def change_player(player):
-    if player == 'Player_2':
-        player = 'Player_1'
-    else:
-        # tego chyba już nie musi być player == 'Player_1'
-        player = 'Player_2'
-
-    return player 
-
-
-# create list of alphabetic coordinates depends on size of the board
-'''
-nie będziesz miał board size, będziesz miał tylko i wyłącznie board więc board_size
-musisz sobie zmierzyć przez len()
-
-tylko nie wiem do czego ta funkcja?
-'''
-def row_number(board_size = 5):
-    rows = []
-    for i in range(65, 65+board_size, 1):
-        rows.append(chr(i))
-    return rows
-
-def quit_from_application(quit_command):
-     if quit_command.upper() == 'QUIT':
-            exit()
-
-def clear_screen():
-    if name == 'nt':
-        _ = system('cls')
-    else:
-        _ = system('clear')
-
-#function validate size of input string, scope of input string and return coordinates in form (x,y) and current player after move. scope 26x26
-def user_input(size_of_the_board,current_player):
-    
+def shooting_phase(player_1, player_2):
+    actual_player = player_1
     while True:
-        user_shoot = input("Make a shoot :").upper()
+        player_turn(actual_player)
+        if check_winner(player_1, player_2):
+            return get_winner(player_1, player_2)
+        actual_player = change_actual_player(actual_player, player_1, player_2)
 
-        quit_from_application(user_shoot)
-       
-        if len(user_shoot) == 2 and user_shoot[1].isalpha() != True \
-            and user_shoot[0].isalpha() == True \
-            and int(user_shoot[1]) in range(1, size_of_the_board + 1) \
-            and user_shoot[0] in row_number(size_of_the_board):
-            # print(row_number(size_of_the_board))
-            break
-        else:
-            clear_screen()
-            print('Invaild input!')
-            continue
+def player_turn(player):
+    # ask for coordinates
+    # make shoot
+    # print board
+    pass
 
+def check_winner(player_1, player_2):
+    # check if there is winner
+    pass
 
-    res_user_shoot = (int(user_shoot[1])-1,row_number(size_of_the_board).index(user_shoot[0]))
-    current_player = change_player(current_player)
-   
-    return res_user_shoot, current_player
+def get_winner(player_1, player_2):
+    # return the winner player_1 or player_2
+    pass
 
-def gamewin(board, board2):
-    if len(list_placed_ships(board)) == len(list_shooted_ships(board2)):
-        text = "Koniec gry"
-    return text
+def change_actual_player(actual_player, player_1, player_2):
+    if actual_player == player_1:
+        return player_2
+    else:
+        return player_1
 
 
 def game_shooting(players):
@@ -85,7 +45,7 @@ def game_shooting(players):
                 board = placement_board_2
                 board2 = shooting_board_1
                 for i in range(board_size):
-                
+                    
                     print(board[i], '|', board2[i])
                 print('-------------------------------------------')
             else:

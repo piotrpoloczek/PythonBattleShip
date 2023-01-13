@@ -1,7 +1,6 @@
 from printing_board.printing import print_board
 
 
-
 def check_coordinate_is_in_board(coordinate_x,coordinate_y,board):
     return 0 <= coordinate_x <= len(board) and 0 <= coordinate_y <= len(board)
 
@@ -11,8 +10,7 @@ def cell_contains_value(board,coordinate_x,coordinate_y, value):
         return board[coordinate_x][coordinate_y] == value
     except IndexError:
         return False
-
-        
+  
 def translate_coordinates(coordinates):
     coordinate_x = 0
     coordinate_y = 0
@@ -32,7 +30,6 @@ def translate_coordinates(coordinates):
 
     return (coordinate_x,coordinate_y-1)
 
-
 def check_available_coordinates(board):
     available_coordinates = []
     for row_index, row in enumerate(board):
@@ -40,6 +37,7 @@ def check_available_coordinates(board):
             if item == '0':
                 available_coordinates.append((row_index, item_index))
     return available_coordinates
+
 
 def ask_for_coordinates(board, cell_contains):
     while True:
