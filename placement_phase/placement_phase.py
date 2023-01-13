@@ -87,7 +87,7 @@ def place_ship(board,coordinate_x,coordinate_y,orientation,ship_size):
                     else:
                         return board,False
                 except IndexError:
-                    if cell_contains_value(board_copy,coordinate_x,coordinate_y,EMPTY_CELL):
+                    if check_coordinate_is_in_board(coordinate_x,coordinate_y,board) and cell_contains_value(board_copy,coordinate_x,coordinate_y,EMPTY_CELL):
                         board_copy[coordinate_x][coordinate_y] = SHIP_IN_CELL
                         coordinate_x += 1
             return board_copy,True
