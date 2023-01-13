@@ -112,6 +112,7 @@ def player_ships_placement(board):
                 break
             else:
                 print('The ship is wrong placed')
+    return board
 
 '''
 i tu można by było zrobic funkcję ships_placement
@@ -124,8 +125,8 @@ Dzięki tej funkcji tylko ta funkcję importujemy w module battleships i mamy sp
 def ships_placement(players):
     player_1 = players[0]
     player_2 = players[1]
-    player_ships_placement(get_player_placement_board(player_1))
-    player_ships_placement(get_player_placement_board(player_2))
+    player_1['placement_board'] = player_ships_placement(get_player_placement_board(player_1))
+    player_2['placement_board'] = player_ships_placement(get_player_placement_board(player_2))
     
     # znowu eksportujemy listę z playerami tylko tym razem mają już umieszczone wszystkie statki
     return [player_1, player_2]
@@ -142,6 +143,6 @@ def ships_placement(players):
 
 
 
-if __name__ == '__main__':
-    board=[['0', '0', '0', '0','0'],['0', '0', '0', '0','0'],['0', '0', '0', '0','0'],['0', '0', '0', '0','0'],['0', '0', '0', '0','0']]
-    print(ask_for_coordinates(board))
+# if __name__ == '__main__':
+#     board=[['0', '0', '0', '0','0'],['0', '0', '0', '0','0'],['0', '0', '0', '0','0'],['0', '0', '0', '0','0'],['0', '0', '0', '0','0']]
+#     print(ask_for_coordinates(board))
