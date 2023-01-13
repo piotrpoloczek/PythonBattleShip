@@ -1,5 +1,7 @@
 from os import system, name
 from player.player_attributes import get_player_name, get_player_placement_board, get_player_shooting_board
+from coordinates.coordinates_function import ask_for_coordinates
+from prepare_game.const import EMPTY_CELL
 
 
 def shooting_phase(player_1, player_2):
@@ -11,9 +13,8 @@ def shooting_phase(player_1, player_2):
         actual_player = change_actual_player(actual_player, player_1, player_2)
 
 def player_turn(player):
-    # ask for coordinates
-    # make shoot
-    # print board
+    player_placement_board = get_player_placement_board(player)
+    ask_for_coordinates(player_placement_board, EMPTY_CELL)
     pass
 
 def check_winner(player_1, player_2):
