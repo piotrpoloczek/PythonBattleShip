@@ -1,7 +1,6 @@
 '''
 This module should return empty board for placement the ships, and for shooting the ships
 It has also the functions for printing the board.
-
 '''
 
 from prepare_game.errors_messages import invallid_username_error

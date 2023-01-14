@@ -1,35 +1,54 @@
 from os import system, name
 from player.player_attributes import get_player_name, get_player_placement_board, get_player_shooting_board
-from coordinates.coordinates_function import ask_for_coordinates
-from prepare_game.const import EMPTY_CELL
+from player.player_functions import change_player, get_winner, check_winner
+from coordinates.coordinates_function import ask_for_coordinates, coordinates_ship_sinked
+from prepare_game.const import EMPTY_CELL, MISSED_CELL, SHIP_HITED
+from coordinates.coordinates_list import (
+    list_available_coordinates, list_shooted_ships,
+    list_missed_shots, list_hited_ships, list_placed_ships)
 
 
 def shooting_phase(player_1, player_2):
     actual_player = player_1
+    opponent = player_2
     while True:
-        player_turn(actual_player)
+        player_turn(actual_player, opponent)
         if check_winner(player_1, player_2):
             return get_winner(player_1, player_2)
-        actual_player = change_actual_player(actual_player, player_1, player_2)
+        actual_player = change_player(actual_player, player_1, player_2)
+        opponent = change_player(opponent, player_1, player_2)
 
-def player_turn(player):
-    player_placement_board = get_player_shooting_board(player)
-    ask_for_coordinates(player_placement_board, EMPTY_CELL)
-    pass
+def player_turn(actual_player, opponent):
+    player_shooting_board = get_player_shooting_board(actual_player)
+    opponent_placement_board = get_player_placement_board(opponent)
 
-def check_winner(player_1, player_2):
-    # check if there is winner
-    pass
+    coordinates = ask_for_coordinates(player_shooting_board, EMPTY_CELL)
+    
+    while True:
+        if coordinates in list_missed_shots(opponent_placement_board):
+            print('you already chose that cell, and you miss')
+        elif coordinates in list_hited_ships(opponent_placement_board):
+            print('you already choose that cell, and you hitted the ship')
+        elif coordinates in list_shooted_ships(opponent_placement_board):
+            print('you already choose that cell, and you sank the ship')
+        elif coordinates in list_available_coordinates(opponent_placement_board):
+            print('you missed the ships')
+            make_shoot(opponent_placement_board, coordinates, MISSED_CELL)
+            break
+        elif coordinates in list_placed_ships(opponent_placement_board):
+            print('you hit the ship')
+            make_shoot(opponent_placement_board, coordinates, SHIP_HITED)
 
-def get_winner(player_1, player_2):
-    # return the winner player_1 or player_2
-    pass
+            coordinates_ship_sinked(opponent_placement_board, coordinates)
+            break
 
-def change_actual_player(actual_player, player_1, player_2):
-    if actual_player == player_1:
-        return player_2
-    else:
-        return player_1
+    
+
+def make_shoot(board, coordinates, cell_sign):
+    coordinate_x = coordinates[0]
+    coordinate_y = coordinates[1]
+    board[coordinate_x, coordinate_y] = cell_sign
+
 
 
 def game_shooting(players):
@@ -125,35 +144,3 @@ def check_nearest(coordin):
 
     return test_coor
 
-
-
-def return_coordinates_with_item(board, searched_item):
-    return [(row_index, item_index) for row_index, row in enumerate(board) for item_index, item in enumerate(row) if item == searched_item]
-
-def list_available_coordinates(board):
-    return return_coordinates_with_item(board, '0')
-    
-def list_shooted_ships(board):
-    return return_coordinates_with_item(board, 'S')
-
-def list_missed_shots(board):
-    return return_coordinates_with_item(board, 'M')
-
-def list_placed_ships(board):
-    return return_coordinates_with_item(board, 'X')
-
-def list_hited_ships(board):
-    return return_coordinates_with_item(board, 'H')
-        
-def print_headerer(board_size):
-    for i in range(board_size):
-            headerer_letter = row_number(board_size)
-            print(' ', end=" ")
-            if i != board_size - 1 :
-                print(headerer_letter[i],end="  ")
-            else:
-                print(f'{headerer_letter[i]}')
-    return None
-
-if __name__ == "__main__":
-    main()

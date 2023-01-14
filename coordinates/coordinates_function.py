@@ -1,4 +1,5 @@
 from printing_board.printing import print_board
+from coordinates.coordinates_list import 
 
 
 def check_coordinate_is_in_board(coordinate_x,coordinate_y,board):
@@ -49,3 +50,6 @@ def ask_for_coordinates(board, cell_contains):
             return (coordinate_x,coordinate_y)
         else:
             print('Bad coordinates')
+
+def coordinates_ship_sinked(coordinates):
+    pass

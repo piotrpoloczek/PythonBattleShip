@@ -1,11 +1,15 @@
 
 
-
-
-def switch_player(player):
-    if player == 'Player_2':
-        player = 'Player_1'
+def change_player(actual_player, player_1, player_2):
+    if actual_player == player_1:
+        return player_2
     else:
-        player = 'Player_2'
+        return player_1
 
-    return player 
+def check_winner(player_1, player_2):
+    # check if there is winner
+    pass
+
+def get_winner(player_1, player_2):
+    # return the winner player_1 or player_2
+    pass
