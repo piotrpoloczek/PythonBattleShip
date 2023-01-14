@@ -13,7 +13,7 @@ def shooting_phase(player_1, player_2):
         actual_player = change_actual_player(actual_player, player_1, player_2)
 
 def player_turn(player):
-    player_placement_board = get_player_placement_board(player)
+    player_placement_board = get_player_shooting_board(player)
     ask_for_coordinates(player_placement_board, EMPTY_CELL)
     pass
 
